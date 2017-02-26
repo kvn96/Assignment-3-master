@@ -199,11 +199,11 @@ pixMap *pixMap_copy(pixMap *p) {
 		memcpy(new->pixArray_arrays, p->pixArray_arrays,
 				rows * sizeof(rgba[MAXWIDTH]));
 	} else if (new->arrayType == 1) {
-		new->pixArray_blocks = malloc(sizeof(rgba*) * rows);
+		new->pixArray_blocks = malloc(sizeof(rgba) * rows);
 		for (int i = 0; i < (p->imageHeight); i++) {
 			p->pixArray_blocks[i] = malloc(sizeof(rgba*) * p->imageWidth);
 			memcpy(new->pixArray_blocks[i], p->pixArray_blocks[i],
-					new->imageWidth * sizeof(rgba*));
+					new->imageWidth * sizeof(rgba));
 		}
 
 	} else if (new->arrayType == 2) {
