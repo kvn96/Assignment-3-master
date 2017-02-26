@@ -84,7 +84,7 @@ pixMap *pixMap_read(char *filename, unsigned char arrayType) {
 
 		//use a loop allocate a block of memory for each row
 		for (int i = 0; i < (p->imageHeight); i++) {
-			p->pixArray_blocks[i] = malloc(sizeof(rgba*) * p->imageWidth);
+			p->pixArray_blocks[i] = malloc(sizeof(rgba) * p->imageWidth);
 		}
 		//copy each row of the image into the newly allocated block 
 		//This sounds like a repeat of the last part except with blocks
@@ -124,12 +124,12 @@ int pixMap_write(pixMap *p, char *filename) {
 	if (p->arrayType == 0) {
 		for (int i = 0; i < p->imageHeight; i++) {
 
-			memcpy(p->image, p->pixArray_arrays[i], p->imageWidth * 4);
+			memcpy(p->image, p->pixArray_arrays[i], p->imageWidth * sizeof(rgba));
 		}
 	} else if (p->arrayType == 1) {
 		for (int i = 0; i < p->imageHeight; i++) {
 			//If 1 then allocates block just like pixMap_read
-			memcpy(p->image, p->pixArray_blocks[i], p->imageWidth * 4);
+			memcpy(p->image, p->pixArray_blocks[i], p->imageWidth * sizeof(rgba));
 		}
 		//have to copy each row of the array into the corresponding row of the image		
 	}
